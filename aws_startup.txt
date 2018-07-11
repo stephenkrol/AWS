@@ -1,0 +1,45 @@
+apt update
+apt upgrade -y
+apt install -y bzip2 openjdk-8-jre python2.7-minimal python-pip # Needed by Anaconda / java kernel 
+																# / Python 2 kernel
+
+# Install Anaconda3 to /opt/Anaconda
+wget -O /opt/Anaconda3-5.2.0-Linux-x86_64.sh https://repo.anaconda.com/archive/Anaconda3-5.2.0-Linux-x86_64.sh
+chmod +x /opt/Anaconda3-5.2.0-Linux-x86_64.sh
+bash /opt/Anaconda3-5.2.0-Linux-x86_64.sh -b -p /opt/Anaconda
+
+# Install additional Anaconda packages and Jupyter kernels
+/opt/Anaconda/bin/conda update conda -y
+/opt/Anaconda/bin/conda update --all -y
+wget -O /opt/anaconda.txt https://raw.githubusercontent.com/stephenkrol/docker/master/cfg/anaconda.txt
+/opt/Anaconda/bin/conda install --file /opt/anaconda.txt
+/opt/Anaconda/bin/jupyter nbextension enable beakerx --py --sys-prefix
+
+# Add Python 2 kernel
+python2 -m pip install --upgrade pip
+python2 -m pip install ipykernel
+python2 -m ipykernel install --user
+
+
+# Clean up Anaconda-related files and set permissions
+/opt/Anaconda/bin/conda clean --all -y
+rm Anaconda3-5.2.0-Linux-x86_64.sh
+rm /opt/anaconda.txt
+chmod -R 777 /opt/Anaconda # 755 if only root will be managing Anaconda packages
+export PATH="/opt/anaconda/bin:$PATH"
+/opt/Anaconda/bin/conda remove nb_conda_kernels -y # Might be fine just removing this from anaconda.txt
+
+# This part deals with the SparkMagic kernels *** REMOVED UNTIL TESTED WITH SPARK ***
+#/opt/Anaconda/bin/jupyter-kernelspec install /opt/Anaconda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
+#/opt/Anaconda/bin/jupyter-kernelspec install /opt/Anaconda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
+#/opt/Anaconda/bin/jupyter-kernelspec install /opt/Anaconda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
+#/opt/Anaconda/bin/jupyter-kernelspec install /opt/Anaconda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
+#wget -O /home/ubuntu/.sparkmagic/config.json https://raw.githubusercontent.com/jupyter-incubator/sparkmagic/master/sparkmagic/example_config.json
+#/opt/Anaconda/bin/jupyter serverextension enable --py sparkmagic
+
+# Set up Jupyter
+mkdir /home/ubuntu/.jupyter # change if user is different
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout "/home/ubuntu/.jupyter/mykey.key" -out "/home/ubuntu/.jupyter/mycert.pem" -batch
+wget -O /home/ubuntu/.jupyter/jupyter_notebook_config.py https://raw.githubusercontent.com/stephenkrol/docker/master/cfg/AWS_jupyter_notebook_config.py
+mkdir /home/ubuntu/notebooks 
+chmod -R 777 /home/ubuntu # Installing with root breaks some permissions in .local
