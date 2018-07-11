@@ -1,7 +1,6 @@
 apt update
 apt upgrade -y
-apt install -y bzip2 openjdk-8-jre python2.7-minimal python-pip # Needed by Anaconda / java kernel 
-																# / Python 2 kernel
+apt install -y bzip2 openjdk-8-jre python2.7-minimal python-pip unzip
 
 # Install Anaconda3 to /opt/Anaconda
 wget -O /opt/Anaconda3-5.2.0-Linux-x86_64.sh https://repo.anaconda.com/archive/Anaconda3-5.2.0-Linux-x86_64.sh
@@ -19,6 +18,22 @@ wget -O /opt/anaconda.txt https://raw.githubusercontent.com/stephenkrol/docker/m
 python2 -m pip install --upgrade pip
 python2 -m pip install ipykernel
 python2 -m ipykernel install --user
+
+# Add H2O jar
+# To install R package, run the following lines one by one in R:
+# if ("package:h2o" %in% search()) { detach("package:h2o", unload=TRUE) }
+# if ("h2o" %in% rownames(installed.packages())) { remove.packages("h2o") }
+# pkgs <- c("RCurl","jsonlite")
+# for (pkg in pkgs) {
+#   if (! (pkg %in% rownames(installed.packages()))) { install.packages(pkg) }
+# }
+# Now exit and run:
+# R CMD INSTALL -l /opt/h2o-3.20.0.3/R/h2o_3.20.0.3.tar.gz
+wget -O /opt/h2o-3.20.0.3.zip http://h2o-release.s3.amazonaws.com/h2o/rel-wright/3/h2o-3.20.0.3.zip
+unzip h2o-3.20.0.3.zip
+mkdir /opt/h2o
+mv ./h2o-3.20.0.3/h2o.jar /opt/h2o
+
 
 
 # Clean up Anaconda-related files and set permissions
