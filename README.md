@@ -14,11 +14,11 @@ This sets up an EC2 instance with Jupyter Notebook with:
 
 ## Usage
 
-Copy/paste from aws_startup.txt into the User Data field when configuring to launch an EC2 instance.
-You will need to SSH in and run /opt/Anaconda/bin/jupyter notebook --no-browser to start
+Copy/paste from *aws_startup.txt* into the User Data field when configuring to launch an EC2 instance.
+You will need to SSH in and run */opt/Anaconda/bin/jupyter notebook --no-browser* to start
 
 Requirements:
-  * After finishing on an Ubuntu base, du -hs reports / to be 8.6G (Anaconda + extras is 6.8G).
+  * After finishing on an Ubuntu base, du -hs reports **/** to be 8.6G (Anaconda + extras is 6.8G).
   * Open port 8888 (or change jupyter_notebook_config.py)
   * Do not run as root (or change jupyter_notebook_config.py)
 
