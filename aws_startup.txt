@@ -36,6 +36,18 @@ chmod -R 777 /opt/Anaconda # 755 if only root will be managing Anaconda packages
 export PATH="/opt/anaconda/bin:$PATH"
 /opt/Anaconda/bin/conda remove _nb_ext_conf -y
 
+# Enable Sparkmagic kernels
+/opt/Anaconda/bin/jupyter nbextension enable --py --sys-prefix widgetsnbextension
+# The following are commands to provide wrapper kernels. Uncomment if necessary
+# /opt/Anaconda/bin/jupyter-kernelspec install /opt/Anaconda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
+# /opt/Anaconda/bin/jupyter-kernelspec install /opt/Anaconda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
+# /opt/Anaconda/bin/jupyter-kernelspec install /opt/Anaconda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
+# /opt/Anaconda/bin/jupyter-kernelspec install /opt/Anaconda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
+# The following is a config file with a bunch of options. Uncomment to grab the example from GitHub
+# wget -O /home/ubuntu/.sparkmagic/config.json https://raw.githubusercontent.com/jupyter-incubator/sparkmagic/master/sparkmagic/example_config.json
+# Uncomment to enable server extension so that clusters can be changed
+# /opt/Anaconda/bin/jupyter serverextension enable --py sparkmagic
+
 # Set up Jupyter
 mkdir /home/ubuntu/.jupyter # change if user is different
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout "/home/ubuntu/.jupyter/mykey.key" -out "/home/ubuntu/.jupyter/mycert.pem" -batch
