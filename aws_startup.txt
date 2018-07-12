@@ -20,21 +20,13 @@ python2 -m pip install ipykernel
 python2 -m ipykernel install --user
 
 # Add H2O jar
-# To install R package, run the following lines one by one in R:
-# if ("package:h2o" %in% search()) { detach("package:h2o", unload=TRUE) }
-# if ("h2o" %in% rownames(installed.packages())) { remove.packages("h2o") }
-# pkgs <- c("RCurl","jsonlite")
-# for (pkg in pkgs) {
-#   if (! (pkg %in% rownames(installed.packages()))) { install.packages(pkg) }
-# }
-# Now exit and run:
+# To install R package, run the following in R:
 # R CMD INSTALL -l /opt/h2o-3.20.0.3/R/h2o_3.20.0.3.tar.gz
 wget -O /opt/h2o-3.20.0.3.zip http://h2o-release.s3.amazonaws.com/h2o/rel-wright/3/h2o-3.20.0.3.zip
-unzip h2o-3.20.0.3.zip
 mkdir /opt/h2o
-mv ./h2o-3.20.0.3/h2o.jar /opt/h2o
-
-
+unzip h2o-3.20.0.3.zip
+mv /opt/h2o-3.20.0.3/* /opt/h2o
+rm -rf /opt/h2o-3.20.0.3/
 
 # Clean up Anaconda-related files and set permissions
 /opt/Anaconda/bin/conda clean --all -y
@@ -42,15 +34,7 @@ rm Anaconda3-5.2.0-Linux-x86_64.sh
 rm /opt/anaconda.txt
 chmod -R 777 /opt/Anaconda # 755 if only root will be managing Anaconda packages
 export PATH="/opt/anaconda/bin:$PATH"
-/opt/Anaconda/bin/conda remove nb_conda_kernels -y # Might be fine just removing this from anaconda.txt
-
-# This part deals with the SparkMagic kernels *** REMOVED UNTIL TESTED WITH SPARK ***
-#/opt/Anaconda/bin/jupyter-kernelspec install /opt/Anaconda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
-#/opt/Anaconda/bin/jupyter-kernelspec install /opt/Anaconda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
-#/opt/Anaconda/bin/jupyter-kernelspec install /opt/Anaconda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
-#/opt/Anaconda/bin/jupyter-kernelspec install /opt/Anaconda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
-#wget -O /home/ubuntu/.sparkmagic/config.json https://raw.githubusercontent.com/jupyter-incubator/sparkmagic/master/sparkmagic/example_config.json
-#/opt/Anaconda/bin/jupyter serverextension enable --py sparkmagic
+/opt/Anaconda/bin/conda remove _nb_ext_conf -y
 
 # Set up Jupyter
 mkdir /home/ubuntu/.jupyter # change if user is different
