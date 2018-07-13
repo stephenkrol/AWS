@@ -36,7 +36,7 @@ rm Anaconda3-5.2.0-Linux-x86_64.sh
 rm /opt/anaconda.txt
 chmod -R 777 /opt/Anaconda # 755 if only root will be managing Anaconda packages
 export PATH="/opt/anaconda/bin:$PATH"
-/opt/Anaconda/bin/jupyter nbextension disable _nb_ext_conf -y
+/opt/Anaconda/bin/jupyter nbextension disable _nb_ext_conf
 
 # Enable Sparkmagic kernels
 /opt/Anaconda/bin/jupyter nbextension enable --py --sys-prefix widgetsnbextension
