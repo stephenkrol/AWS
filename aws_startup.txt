@@ -1,6 +1,6 @@
 apt update
 apt upgrade -y
-apt install -y bzip2 openjdk-8-jre python2.7-minimal python-pip unzip
+apt install -y openjdk-8-jre python2.7-minimal python-pip unzip
 
 # Install Anaconda3 to /opt/Anaconda
 wget -O /opt/Anaconda3-5.2.0-Linux-x86_64.sh https://repo.anaconda.com/archive/Anaconda3-5.2.0-Linux-x86_64.sh
@@ -10,9 +10,11 @@ bash /opt/Anaconda3-5.2.0-Linux-x86_64.sh -b -p /opt/Anaconda
 # Install additional Anaconda packages and Jupyter kernels
 /opt/Anaconda/bin/conda update conda -y
 /opt/Anaconda/bin/conda update --all -y
-wget -O /opt/anaconda.txt https://raw.githubusercontent.com/stephenkrol/docker/master/cfg/anaconda.txt
+wget -O /opt/anaconda.txt https://raw.githubusercontent.com/stephenkrol/AWS/sparkmagic/cfg/anaconda.txt
 /opt/Anaconda/bin/conda install --file /opt/anaconda.txt
 /opt/Anaconda/bin/jupyter nbextension enable beakerx --py --sys-prefix
+/opt/Anaconda/bin/jupyter nbextension enable jupyter_dashboards --py --sys-prefix
+/opt/Anaconda/bin/jupyter nbextensions_configurator enable --user
 
 # Add Python 2 kernel
 python2 -m pip install --upgrade pip
@@ -34,7 +36,7 @@ rm Anaconda3-5.2.0-Linux-x86_64.sh
 rm /opt/anaconda.txt
 chmod -R 777 /opt/Anaconda # 755 if only root will be managing Anaconda packages
 export PATH="/opt/anaconda/bin:$PATH"
-/opt/Anaconda/bin/conda remove _nb_ext_conf -y
+/opt/Anaconda/bin/jupyter nbextension disable _nb_ext_conf -y
 
 # Enable Sparkmagic kernels
 /opt/Anaconda/bin/jupyter nbextension enable --py --sys-prefix widgetsnbextension
@@ -51,6 +53,6 @@ export PATH="/opt/anaconda/bin:$PATH"
 # Set up Jupyter
 mkdir /home/ubuntu/.jupyter # change if user is different
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout "/home/ubuntu/.jupyter/mykey.key" -out "/home/ubuntu/.jupyter/mycert.pem" -batch
-wget -O /home/ubuntu/.jupyter/jupyter_notebook_config.py https://raw.githubusercontent.com/stephenkrol/docker/master/cfg/AWS_jupyter_notebook_config.py
+wget -O /home/ubuntu/.jupyter/jupyter_notebook_config.py https://raw.githubusercontent.com/stephenkrol/AWS/sparkmagic/cfg/jupyter_notebook_config.py
 mkdir /home/ubuntu/notebooks 
 chmod -R 777 /home/ubuntu # Installing with root breaks some permissions in .local
