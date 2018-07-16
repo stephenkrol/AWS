@@ -2,19 +2,19 @@ apt update
 apt upgrade -y
 apt install -y openjdk-8-jre python2.7-minimal python-pip unzip
 
-# Install Anaconda3 to /opt/Anaconda
+# Install Anaconda3 to /opt/conda
 wget -O /opt/Anaconda3-5.2.0-Linux-x86_64.sh https://repo.anaconda.com/archive/Anaconda3-5.2.0-Linux-x86_64.sh
 chmod +x /opt/Anaconda3-5.2.0-Linux-x86_64.sh
-bash /opt/Anaconda3-5.2.0-Linux-x86_64.sh -b -p /opt/Anaconda
+bash /opt/Anaconda3-5.2.0-Linux-x86_64.sh -b -p /opt/conda
 
 # Install additional Anaconda packages and Jupyter kernels
-/opt/Anaconda/bin/conda update conda -y
-/opt/Anaconda/bin/conda update --all -y
+/opt/conda/bin/conda update conda -y
+/opt/conda/bin/conda update --all -y
 wget -O /opt/anaconda.txt https://raw.githubusercontent.com/stephenkrol/AWS/sparkmagic/cfg/anaconda.txt
-/opt/Anaconda/bin/conda install --file /opt/anaconda.txt
-/opt/Anaconda/bin/jupyter nbextension enable beakerx --py --sys-prefix
-/opt/Anaconda/bin/jupyter nbextension enable jupyter_dashboards --py --sys-prefix
-/opt/Anaconda/bin/jupyter nbextensions_configurator enable --user
+/opt/conda/bin/conda install --file /opt/anaconda.txt
+/opt/conda/bin/jupyter nbextension enable beakerx --py --sys-prefix
+/opt/conda/bin/jupyter nbextension enable jupyter_dashboards --py --sys-prefix
+/opt/conda/bin/jupyter nbextensions_configurator enable --user
 
 # Add Python 2 kernel
 python2 -m pip install --upgrade pip
@@ -31,24 +31,24 @@ mv /opt/h2o-3.20.0.3/* /opt/h2o
 rm -rf /opt/h2o-3.20.0.3/
 
 # Clean up Anaconda-related files and set permissions
-/opt/Anaconda/bin/conda clean --all -y
+/opt/conda/bin/conda clean --all -y
 rm Anaconda3-5.2.0-Linux-x86_64.sh
 rm /opt/anaconda.txt
-chmod -R 777 /opt/Anaconda # 755 if only root will be managing Anaconda packages
-export PATH="/opt/anaconda/bin:$PATH"
-/opt/Anaconda/bin/jupyter nbextension disable _nb_ext_conf
+chmod -R 777 /opt/conda # 755 if only root will be managing Anaconda packages
+export PATH="/opt/conda/bin:$PATH"
+/opt/conda/bin/jupyter nbextension disable _nb_ext_conf
 
 # Enable Sparkmagic kernels
-/opt/Anaconda/bin/jupyter nbextension enable --py --sys-prefix widgetsnbextension
+/opt/conda/bin/jupyter nbextension enable --py --sys-prefix widgetsnbextension
 # The following are commands to provide wrapper kernels. Uncomment if necessary
-# /opt/Anaconda/bin/jupyter-kernelspec install /opt/Anaconda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
-# /opt/Anaconda/bin/jupyter-kernelspec install /opt/Anaconda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
-# /opt/Anaconda/bin/jupyter-kernelspec install /opt/Anaconda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
-# /opt/Anaconda/bin/jupyter-kernelspec install /opt/Anaconda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
+# /opt/conda/bin/jupyter-kernelspec install /opt/conda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
+# /opt/conda/bin/jupyter-kernelspec install /opt/conda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
+# /opt/conda/bin/jupyter-kernelspec install /opt/conda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
+# /opt/conda/bin/jupyter-kernelspec install /opt/conda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
 # The following is a config file with a bunch of options. Uncomment to grab the example from GitHub
 # wget -O /home/ubuntu/.sparkmagic/config.json https://raw.githubusercontent.com/jupyter-incubator/sparkmagic/master/sparkmagic/example_config.json
 # Uncomment to enable server extension so that clusters can be changed
-# /opt/Anaconda/bin/jupyter serverextension enable --py sparkmagic
+# /opt/conda/bin/jupyter serverextension enable --py sparkmagic
 
 # Set up Jupyter
 mkdir /home/ubuntu/.jupyter # change if user is different
