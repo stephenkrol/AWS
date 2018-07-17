@@ -8,6 +8,7 @@ https://repo.anaconda.com/pkgs/main/linux-64/blas-1.0-mkl.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/ca-certificates-2018.4.16-0.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/conda-env-2.6.0-h36134e3_1.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/intel-openmp-2018.0.3-0.tar.bz2
+https://conda.anaconda.org/conda-forge/linux-64/jansson-2.11-0.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/libgcc-ng-7.2.0-hdf63c60_3.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/libgfortran-ng-7.2.0-hdf63c60_3.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/libstdcxx-ng-7.2.0-hdf63c60_3.tar.bz2
@@ -49,6 +50,7 @@ https://repo.anaconda.com/pkgs/main/linux-64/unixodbc-2.3.6-h1bed415_0.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/xz-5.2.4-h14c3975_4.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/yaml-0.1.7-had09818_2.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/zlib-1.2.11-ha838bed_2.tar.bz2
+https://conda.anaconda.org/conda-forge/linux-64/avro-1.8.2-h8f0a498_0.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/blosc-1.14.3-hdbcaa40_0.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/gcc_linux-64-7.2.0-h550dcbe_27.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/gfortran_impl_linux-64-7.2.0-hdf63c60_3.tar.bz2
@@ -458,7 +460,7 @@ https://repo.anaconda.com/pkgs/main/linux-64/autovizwidget-0.12.5-py36hb2c7800_0
 https://repo.anaconda.com/pkgs/main/linux-64/bokeh-0.13.0-py36_0.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/bottleneck-1.2.1-py36haac1ea0_0.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/cftime-1.0.0-py36_0.tar.bz2
-https://repo.anaconda.com/pkgs/main/linux-64/conda-4.5.8-py36_0.tar.bz2
+https://conda.anaconda.org/conda-forge/linux-64/conda-4.5.8-py36_1.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/conda-build-3.10.9-py36_0.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/datashape-0.5.4-py36h3ad6b5c_0.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/descartes-1.1.0-py36_0.tar.bz2
