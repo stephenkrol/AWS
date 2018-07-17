@@ -34,8 +34,8 @@ rm -rf /opt/h2o-3.20.0.3/
 /opt/conda/bin/conda clean --all -y
 rm Anaconda3-5.2.0-Linux-x86_64.sh
 rm /opt/anaconda.txt
-chown -R ubuntu:ubuntu /opt/Anaconda
-chmod -R 777 /opt/conda # 755 if only root will be managing Anaconda packages
+chown -R ubuntu:ubuntu /opt/conda
+chmod -R 755 /opt/conda
 export PATH="/opt/conda/bin:$PATH"
 /opt/conda/bin/jupyter nbextension disable _nb_ext_conf
 
