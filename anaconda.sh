@@ -1,22 +1,19 @@
 #!/bin/bash
 
 # Variables
-# User
 
-USER=ubuntu
 # Directories
 INSTALL_DIR=/opt
 CONDA_DIR=${INSTALL_DIR}/conda
 CONDA_BIN=${CONDA_DIR}/bin
 H2O_DIR=${INSTALL_DIR}/h2o
-JUPYTER_CFG_DIR=/home/${USER}/.jupyter
+JUPYTER_CFG_DIR=${HOME}/.jupyter
 NOTEBOOKS_DIR=${CONDA_DIR}/notebooks
 # Apt packages
 APT_PKGS="openssl openjdk-8-jre python2.7-minimal python-pip unzip"
 # Additional options
 JUPYTER_PORT=8888
 # Software
-TINI_VERSION=v0.18.0
 H2O_VERSION=3.20.0.3
 CONDA=Anaconda3
 CONDA_VERSION=5.2.0
@@ -70,7 +67,7 @@ ${CONDA_BIN}/jupyter nbextension disable _nb_ext_conf
 # Enable Sparkmagic kernels
 ${CONDA_BIN}/jupyter nbextension enable --py --sys-prefix widgetsnbextension
 # The following is a config file with a bunch of options. Uncomment to grab the example from GitHub
-# wget -O /home/${USER}/.sparkmagic/config.json https://raw.githubusercontent.com/jupyter-incubator/sparkmagic/master/sparkmagic/example_config.json
+# wget -O ${HOME}/.sparkmagic/config.json https://raw.githubusercontent.com/jupyter-incubator/sparkmagic/master/sparkmagic/example_config.json
 # Uncomment to enable server extension so that clusters can be changed
 # ${CONDA_BIN}/jupyter serverextension enable --py sparkmagic
 
@@ -79,5 +76,5 @@ mkdir $JUPYTER_CFG_DIR # if: doesnt exist, create
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout "${JUPYTER_CFG_DIR}/mykey.key" -out "${JUPYTER_CFG_DIR}/mycert.pem" -batch
 wget -O ${JUPYTER_CFG_DIR}/jupyter_notebook_config.py https://raw.githubusercontent.com/stephenkrol/AWS/sparkmagic/cfg/jupyter_notebook_config.py
 mkdir $NOTEBOOKS_DIR 
-sudo chown -R ${USER}:${USER} /home/${USER}
-sudo chmod -R 755 /home/${USER} # Installing with root breaks some permissions in .local
+sudo chown -R ${USER}:${USER} $HOME
+sudo chmod -R 755 $HOME # Installing with root breaks some permissions in ~/.local
