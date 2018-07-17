@@ -34,17 +34,13 @@ rm -rf /opt/h2o-3.20.0.3/
 /opt/conda/bin/conda clean --all -y
 rm Anaconda3-5.2.0-Linux-x86_64.sh
 rm /opt/anaconda.txt
-chmod -R 777 /opt/conda # 755 if only root will be managing Anaconda packages
+chown -R ubuntu:ubuntu /opt/conda
+chmod -R 755 /opt/conda
 export PATH="/opt/conda/bin:$PATH"
 /opt/conda/bin/jupyter nbextension disable _nb_ext_conf
 
 # Enable Sparkmagic kernels
 /opt/conda/bin/jupyter nbextension enable --py --sys-prefix widgetsnbextension
-# The following are commands to provide wrapper kernels. Uncomment if necessary
-# /opt/conda/bin/jupyter-kernelspec install /opt/conda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
-# /opt/conda/bin/jupyter-kernelspec install /opt/conda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
-# /opt/conda/bin/jupyter-kernelspec install /opt/conda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
-# /opt/conda/bin/jupyter-kernelspec install /opt/conda/pkgs/sparkmagic-0.12.1-py36_0/lib/python3.6/site-packages/sparkmagic/kernels/sparkrkernel
 # The following is a config file with a bunch of options. Uncomment to grab the example from GitHub
 # wget -O /home/ubuntu/.sparkmagic/config.json https://raw.githubusercontent.com/jupyter-incubator/sparkmagic/master/sparkmagic/example_config.json
 # Uncomment to enable server extension so that clusters can be changed
@@ -55,4 +51,5 @@ mkdir /home/ubuntu/.jupyter # change if user is different
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout "/home/ubuntu/.jupyter/mykey.key" -out "/home/ubuntu/.jupyter/mycert.pem" -batch
 wget -O /home/ubuntu/.jupyter/jupyter_notebook_config.py https://raw.githubusercontent.com/stephenkrol/AWS/sparkmagic/cfg/jupyter_notebook_config.py
 mkdir /home/ubuntu/notebooks 
-chmod -R 777 /home/ubuntu # Installing with root breaks some permissions in .local
+chown -R ubuntu:ubuntu /home/ubuntu
+chmod -R 755 /home/ubuntu # Installing with root breaks some permissions in .local
