@@ -1,12 +1,35 @@
 #!/bin/bash
 
-# Variables
+
+# Check this is run by root
+if [ 0 != $(id -u) ]; then 
+	echo "this script must be run as root"; 
+	exit 1; 
+fi
+
+# Get user for install if not given as argument
+if [ "$1" = "" ]; then
+	echo What is the name of the non-root user for installation?
+	echo Parts of the install will be in his/her home directory
+	echo and Jupyter will be usable by that user.
+	read USERNAME
+else
+	USERNAME=$1
+fi
+
+if [ username = root ]; then
+	HOMEDIR=/root
+else
+	HOMEDIR=/home/${USERNAME}
+fi
+
+# Variables: Feel free to change anything but CONDA_BIN.
 # Directories
 INSTALL_DIR=/opt
 CONDA_DIR=${INSTALL_DIR}/conda
 CONDA_BIN=${CONDA_DIR}/bin
 H2O_DIR=${INSTALL_DIR}/h2o
-JUPYTER_CFG_DIR=${HOME}/.jupyter
+JUPYTER_CFG_DIR=${HOMEDIR}/.jupyter
 NOTEBOOKS_DIR=${CONDA_DIR}/notebooks
 # Packages
 APT_PKGS="openssl openjdk-8-jre python2.7-minimal python-pip unzip"
@@ -24,14 +47,11 @@ CONDA_URL="https://repo.anaconda.com/archive"
 #CONDA_VERSION=latest
 #CONDA_URL=https://repo.continuum.io/miniconda
 
-
-sudo apt update
-sudo apt upgrade -y
-sudo apt install -y $APT_PKGS
+apt update
+apt upgrade -y
+apt install -y $APT_PKGS
 
 # Install Anaconda
-sudo chown -R ${USER}:${USER} ${INSTALL_DIR}
-sudo chmod -755 ${INSTALL_DIR}
 wget -O ${INSTALL_DIR}/${CONDA}-${CONDA_VERSION}-$(uname -s)-$(uname -m).sh ${CONDA_URL}/${CONDA}-${CONDA_VERSION}-$(uname -s)-$(uname -m).sh
 bash ${INSTALL_DIR}/${CONDA}-${CONDA_VERSION}-$(uname -s)-$(uname -m).sh -b -p $CONDA_DIR
 
@@ -45,9 +65,9 @@ ${CONDA_BIN}/jupyter nbextension enable jupyter_dashboards --py --sys-prefix
 ${CONDA_BIN}/jupyter nbextensions_configurator enable --user
 
 # Add Python 2 kernel
-sudo -H python2 -m pip install --upgrade pip
-sudo -H python2 -m pip install ipykernel
-sudo python2 -m ipykernel install --user
+python2 -m pip install --upgrade pip
+python2 -m pip install ipykernel
+python2 -m ipykernel install --user
 
 # Add H2O jar
 # To install R package, run the following in R:
@@ -68,7 +88,7 @@ ${CONDA_BIN}/jupyter nbextension disable _nb_ext_conf
 # Enable Sparkmagic kernels
 ${CONDA_BIN}/jupyter nbextension enable --py --sys-prefix widgetsnbextension
 # The following is a config file with a bunch of options. Uncomment to grab the example from GitHub
-# wget -O ${HOME}/.sparkmagic/config.json https://raw.githubusercontent.com/jupyter-incubator/sparkmagic/master/sparkmagic/example_config.json
+# wget -O ${HOMEDIR}/.sparkmagic/config.json https://raw.githubusercontent.com/jupyter-incubator/sparkmagic/master/sparkmagic/example_config.json
 # Uncomment to enable server extension so that clusters can be changed
 # ${CONDA_BIN}/jupyter serverextension enable --py sparkmagic
 
@@ -77,5 +97,11 @@ mkdir $JUPYTER_CFG_DIR # if: doesnt exist, create
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout "${JUPYTER_CFG_DIR}/mykey.key" -out "${JUPYTER_CFG_DIR}/mycert.pem" -batch
 wget -O ${JUPYTER_CFG_DIR}/jupyter_notebook_config.py https://raw.githubusercontent.com/stephenkrol/AWS/sparkmagic/cfg/jupyter_notebook_config.py
 mkdir $NOTEBOOKS_DIR
-sudo chown -R ${USER}:${USER} $HOME
-sudo chmod -R 755 $HOME # Installing with root breaks some permissions in ~/.local
+
+# Fix permissions if not installing for root
+if [ username = "root" ]; then
+	chown -R ${USERNAME}:${USERNAME} $HOMEDIR
+	chmod -R 755 $HOMEDIR # Installing with root breaks some permissions in ~/.local
+	chown -R ${USERNAME}:${USERNAME} ${INSTALL_DIR}
+	chmod -755 ${INSTALL_DIR}
+fi
