@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Check this is run by root
 if [ 0 != $(id -u) ]; then 
 	echo "this script must be run as root"; 
@@ -9,6 +8,7 @@ fi
 
 # Get user for install if not given as argument
 if [ "$1" = "" ]; then
+	echo 
 	echo What is the name of the non-root user for installation?
 	echo Parts of the install will be in his/her home directory
 	echo and Jupyter will be usable by that user.
@@ -17,6 +17,7 @@ else
 	USERNAME=$1
 fi
 
+# Set home directory
 if [ username = root ]; then
 	HOMEDIR=/root
 else
