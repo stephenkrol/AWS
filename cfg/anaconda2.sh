@@ -1,27 +1,27 @@
 #!/bin/bash
 
 # Check this is run by root
-if [ 0 != $(id -u) ]; then 
-	echo "this script must be run as root"; 
-	exit 1; 
+if [ 0 != $(id -u) ]; then
+        echo "this script must be run as root";
+        exit 1;
 fi
 
 # Get user for install if not given as argument
 if [ "$1" = "" ]; then
-	echo 
-	echo What is the name of the non-root user for installation?
-	echo Parts of the install will be in his/her home directory
-	echo and Jupyter will be usable by that user.
-	read USERNAME
+        echo
+        echo What is the name of the non-root user for installation?
+        echo Parts of the install will be in his/her home directory
+        echo and Jupyter will be usable by that user.
+        read USERNAME
 else
-	USERNAME=$1
+        USERNAME=$1
 fi
 
 # Set home directory
 if [ username = root ]; then
-	HOMEDIR=/root
+        HOMEDIR=/root
 else
-	HOMEDIR=/home/${USERNAME}
+        HOMEDIR=/home/${USERNAME}
 fi
 
 # Variables: Feel free to change anything but CONDA_BIN.
@@ -100,9 +100,9 @@ wget -O ${JUPYTER_CFG_DIR}/jupyter_notebook_config.py https://raw.githubusercont
 mkdir $NOTEBOOKS_DIR
 
 # Fix permissions if not installing for root
-if [ username = "root" ]; then
-	chown -R ${USERNAME}:${USERNAME} $HOMEDIR
-	chmod -R 755 $HOMEDIR # Installing with root breaks some permissions in ~/.local
-	chown -R ${USERNAME}:${USERNAME} ${INSTALL_DIR}
-	chmod -755 ${INSTALL_DIR}
+if [ username != root ]; then
+        chown -R ${USERNAME}:${USERNAME} $HOMEDIR
+        chmod -R 755 $HOMEDIR # Installing with root breaks some permissions in ~/.local
+        chown -R ${USERNAME}:${USERNAME} ${INSTALL_DIR}
+        chmod -755 ${INSTALL_DIR}
 fi
