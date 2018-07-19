@@ -9,6 +9,7 @@ This sets up an EC2 instance with Jupyter Notebook with:
   * Beakerx (https://github.com/twosigma/beakerx) providing Clojure, Groovy, Java (openJDK 8), Kotlin, SQL, and Scala kernels
   * SciJava (https://github.com/scijava/scijava-jupyter-kernel) providing Clojure, Groovy, ImageJ, Python, JavaScript, and R within the same notebook
   * Anaconda providing Python 2/3, R, and a ton of data science packages.
+  * Sparkmagic (https://github.com/jupyter-incubator/sparkmagic) providing Spark-connected (through livy) kernels in Python, Python3, R, and Scala.
 
 -----
 
@@ -18,6 +19,8 @@ Copy/paste from *aws_startup.txt* into the User Data field when configuring to l
 You will need to SSH in and run */opt/Anaconda/bin/jupyter notebook --no-browser* to start
 
 ##### Requirements:
+
+  * Tried on Ubuntu x64 server base
   * After finishing on an Ubuntu base, du -hs reports **/** to be 8.6G (Anaconda + extras is 6.8G).
   * Open port 8888 (or change jupyter_notebook_config.py)
   * Do not run as root (or change jupyter_notebook_config.py)

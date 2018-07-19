@@ -10,7 +10,7 @@ bash /opt/Anaconda3-5.2.0-Linux-x86_64.sh -b -p /opt/conda
 # Install additional Anaconda packages and Jupyter kernels
 /opt/conda/bin/conda update conda -y
 /opt/conda/bin/conda update --all -y
-wget -O /opt/anaconda.txt https://raw.githubusercontent.com/stephenkrol/AWS/master/cfg/anaconda.txt
+wget -O /opt/anaconda.txt https://raw.githubusercontent.com/stephenkrol/AWS/sparkmagic/cfg/anaconda.txt
 /opt/conda/bin/conda install --file /opt/anaconda.txt
 /opt/conda/bin/jupyter nbextension enable beakerx --py --sys-prefix
 /opt/conda/bin/jupyter nbextension enable jupyter_dashboards --py --sys-prefix
@@ -39,10 +39,17 @@ chmod -R 755 /opt/conda
 export PATH="/opt/conda/bin:$PATH"
 /opt/conda/bin/jupyter nbextension disable _nb_ext_conf
 
+# Enable Sparkmagic kernels
+/opt/conda/bin/jupyter nbextension enable --py --sys-prefix widgetsnbextension
+# The following is a config file with a bunch of options. Uncomment to grab the example from GitHub
+# wget -O /home/ubuntu/.sparkmagic/config.json https://raw.githubusercontent.com/jupyter-incubator/sparkmagic/master/sparkmagic/example_config.json
+# Uncomment to enable server extension so that clusters can be changed
+# /opt/conda/bin/jupyter serverextension enable --py sparkmagic
+
 # Set up Jupyter
 mkdir /home/ubuntu/.jupyter # change if user is different
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout "/home/ubuntu/.jupyter/mykey.key" -out "/home/ubuntu/.jupyter/mycert.pem" -batch
-wget -O /home/ubuntu/.jupyter/jupyter_notebook_config.py https://raw.githubusercontent.com/stephenkrol/AWS/master/cfg/jupyter_notebook_config.py
+wget -O /home/ubuntu/.jupyter/jupyter_notebook_config.py https://raw.githubusercontent.com/stephenkrol/AWS/sparkmagic/cfg/jupyter_notebook_config.py
 mkdir /home/ubuntu/notebooks 
 chown -R ubuntu:ubuntu /home/ubuntu
 chmod -R 755 /home/ubuntu # Installing with root breaks some permissions in .local
